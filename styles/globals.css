@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+}
+
+.form-container {
+  margin-top: 30px;
+  background-color: white;
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tittle {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.image1 {
+  width: 20vw;
+  border-radius: 20px;
+}
+
+.colorGradient {
+  background: linear-gradient(90deg, red, blue);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  display: inline;
+}
+
+.colorWhite {
+  color: #FFF;
+  display: inline;
+}
+
+.colorPink {
+  color: #CB13B7;
+}
+
+@keyframes gradient {
+  0% {
+    background-color: red;
+  }
+  20% {
+    background-color: yellow;
+  }
+  40% {
+    background-color: green;
+  }
+  60% {
+    background-color: blue;
+  }
+  80% {
+    background-color: purple;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+.header {
+  z-index: 999999;
+  display: flex;
+  background-color: #CB13B7;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 10px 40px;
+  align-items: center;
+}
+
+.button {
+  height: 45px;
+  width: 200px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #CB13B7;
+  background-color: #FFF;
+  box-shadow: rgb(38 120 113 / 15%) 0px 4px 20px 5px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+  font-size: 20px;
+}
+
+@keyframes button {
+  0% {
+    background-color: green;
+  }
+  20% {
+    background-color: blue;
+  }
+  70% {
+    background-color: purple;
+  }
+  100% {
+    background-color: green;
+  }
+}
+
+.menus {
+  display: flex;
+}
+
+.menus div {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .header div {
+    margin-top: 10px;
+  }
+
+  
+
+  
+  .form-container {
+    margin-top: 20px;
+    width: 90vw;
+  }
+
+  .disable-on-600 {
+    display: none !important;
+  }
+
+  .image-frame {
+    height: 150px;
+    flex: auto !important
+  }
+
+  .button {
+    margin-top:  10px;
+  }
+  
+}
+
+@media (max-width: 400px) {
+  .disable-on-400 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .content-container {
+    flex-direction: column;
+  }
+
+  html {
+    overflow-y: scroll;
+    overflow-x: auto;
+  }
+
+  #app{
+    height: 125vh;
+
+  }
+}
+
+.my-colors {
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #FFF;
+  box-shadow: rgb(38 120 113 / 15%) 0px 4px 20px 5px;
+  border-radius: 20px;
+  border: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
