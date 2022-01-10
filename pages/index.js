@@ -740,6 +740,8 @@ function Index() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <title>Crypto Colors</title>
+
       <div className="header">
         <div className="tittle colorWhite">Crypto Colors</div>
 
