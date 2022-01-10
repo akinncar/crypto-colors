@@ -700,7 +700,7 @@ function Index() {
 
   function claim() {
     setIsClaiming(true);
-    let _price = web3.utils.toWei("5");
+    let _price = web3.utils.toWei("1");
     contract.methods
       .claim()
       .send({
