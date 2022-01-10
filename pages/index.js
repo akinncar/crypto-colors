@@ -771,10 +771,6 @@ function Index() {
                     <Image src='/assets/twitter.svg' alt='colors' width='20' height='20' />
                   </a>
 
-                  <a href='https://discord.gg/4wtQBUuuhP' className='mr-10' target='_blank'>
-                    <Image src='/assets/discord.svg' alt='colors' width='20' height='20' />
-                  </a>
-
                   <a href='https://ftmscan.com/address/0x05E90E32ab55CbD75767C7863306471bCbF75d5e' className='mr-10' target='_blank'>
                     <Image src='/assets/fantom.svg' alt='colors' width='20' height='20' />
                   </a>
