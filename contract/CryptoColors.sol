@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -24,6 +24,10 @@ contract CryptoColors is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     function _baseURI() internal view override returns (string memory) {
         return _baseUrl;
+    }
+
+    function setMaxMintable(uint256 _newMaxMintable) public onlyOwner {
+        maxMintable = _newMaxMintable;
     }
 
     function setPrice(uint256 _newPrice) public onlyOwner {
