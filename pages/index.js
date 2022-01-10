@@ -782,14 +782,14 @@ function Index() {
               </div>
 
               <div style={{ display: 'flex', maxWidth: '400px', flexWrap: 'wrap' }}>
-                <Image src='/assets/nfts/out612.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out620.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out622.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out623.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out624.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out625.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out626.png' alt='color' width='100' height='100' />
-                <Image src='/assets/nfts/out629.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/612.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/620.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/622.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/623.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/624.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/625.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/626.png' alt='color' width='100' height='100' />
+                <Image src='/assets/nfts/629.png' alt='color' width='100' height='100' />
               </div>
             </div>
             
