@@ -24,7 +24,7 @@ function Index() {
       id: 'csharp',
       title: '#1 C# Color',
       description: 'An distinguish C# color'
-    }, 
+    },
     {
       id: 'c++',
       title: '#2 C++ Color',
@@ -588,62 +588,76 @@ function Index() {
 
   let contractAddress = "0xb43d509EC01eB42b4021d14eC0e422abf2ECf950";
 
-  function connectWallet(){
-    if(!window.ethereum){
+  function connectWallet() {
+    if (!window.ethereum) {
       alert("Please install MetaMask");
       setIsReady(false);
       return;
     }
-    
+
     ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((accounts) => {
-          setAddress(accounts[0]);
-          let w3 = new Web3(ethereum);
-          setWeb3(w3);
-          let c = new w3.eth.Contract(abi, contractAddress);
-          setContract(c);
+      .request({ method: "eth_requestAccounts" })
+      .then((accounts) => {
+        setAddress(accounts[0]);
+        let w3 = new Web3(ethereum);
+        setWeb3(w3);
+        let c = new w3.eth.Contract(abi, contractAddress);
+        setContract(c);
 
-          c.methods
-            .totalSupply()
-            .call()
-            .then((supply) => {
-              setIsReady(true);
-              setSupply(supply);
-            })
-            .catch((err) => {
-              setIsReady(false);
-              setAddress(null);
-              setSupply(0);
-              setBalance(0);
-              setMaxMintable(0);
-              setContract(null);
-              Swal.fire({
-                title: 'Error!',
-                html: 'Check if you are using the Fantom Network',
-                icon: 'error',
-                confirmButtonText: 'Ok'
-              })
-              console.log(err)
-            });
-
-          c.methods
-            .maxMintable()
-            .call()
-            .then((maxMintable) => {
-              setMaxMintable(maxMintable);
-            })
-            .catch((err) => console.log(err));
-
-          c.methods
-            .balanceOf(accounts[0])
-            .call()
-            .then((_balance) => {
-              setBalance(_balance);
-            })
-            .catch((err) => console.log(err));
+        c.methods
+        .totalSupply()
+        .call()
+        .then((supply) => {
+          setIsReady(true);
+          setSupply(supply);
         })
-        .catch((err) => {
+          .catch((err) => {
+            requestNetworkSwitch()
+              .then(() => {
+                c.methods
+                .totalSupply()
+                .call()
+                .then((supply) => {
+                  setIsReady(true);
+                  setSupply(supply);
+                })
+                .catch(() => {
+                  setIsReady(false);
+                  setAddress(null);
+                  setSupply(0);
+                  setBalance(0);
+                  setMaxMintable(0);
+                  setContract(null);
+                  Swal.fire({
+                    title: 'Error!',
+                    html: 'Check if you are using the Fantom Network',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                  })
+                  console.log(err)
+                });
+              })
+
+          });
+
+        c.methods
+          .maxMintable()
+          .call()
+          .then((maxMintable) => {
+            setMaxMintable(maxMintable);
+          })
+          .catch((err) => console.log(err));
+
+        c.methods
+          .balanceOf(accounts[0])
+          .call()
+          .then((_balance) => {
+            setBalance(_balance);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => {
+        requestNetworkSwitch().catch(() => {
           setIsReady(false);
           Swal.fire({
             title: 'Error!',
@@ -652,12 +666,45 @@ function Index() {
             confirmButtonText: 'Ok'
           })
           console.log(err)
-        })      
+        })
+      })
   }
 
   function handleClaim() {
     let tx = claim();
     console.log(tx);
+  }
+
+  const toHex = (num) => '0x' + num.toString(16)
+
+  const requestNetworkSwitch = async () => {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: toHex(250) }]
+      })
+    } catch (error) {
+      if (error.code === 4902) {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: toHex(250),
+              chainName: 'Fantom Opera',
+              nativeCurrency: {
+                name: 'Fantom',
+                symbol: 'FTM',
+                decimals: 18
+              },
+              blockExplorerUrls: ['https://ftmscan.com/'],
+              rpcUrls: ['https://rpcapi.fantom.network/'],
+            }, address
+          ],
+        });
+        return
+      }
+      throw error;
+    }
   }
 
   const showColorsFromPerson = async () => {
@@ -666,11 +713,11 @@ function Index() {
 
     for (let i = 0; i < totalSupply; i++) {
       const accountAddress = await contract.methods.ownerOf([i]).call()
-      
+
       if (accountAddress.toLowerCase() == address.toLowerCase())
-        owners.push({ accountAddress: { id: i } }) 
+        owners.push({ accountAddress: { id: i } })
     }
-    
+
     setColors(owners)
   }
 
@@ -718,7 +765,7 @@ function Index() {
         setIsClaiming(false);
         loadData();
 
-        const link = 'https://ftmscan.com/tx/' + receipt.transactionHash 
+        const link = 'https://ftmscan.com/tx/' + receipt.transactionHash
 
         Swal.fire({
           title: 'Success!',
@@ -746,20 +793,20 @@ function Index() {
         <div className="tittle colorWhite">Crypto Colors</div>
 
         <button className='button' onClick={connectWallet}>
-          {isReady ? address?.substring(0, 6) + "..." + address?.substring(address.length - 4, address.length) : "Connect" } {}
+          {isReady ? address?.substring(0, 6) + "..." + address?.substring(address.length - 4, address.length) : "Connect"} { }
         </button>
       </div>
 
       <div style={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
         {!canSeeColors ? (
-          <div style={{ display: 'flex', flexDirection: 'column'}}>
-            <div style={{ 
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               marginBottom: '20px'
             }}>
-              <div style={{ 
+              <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -768,12 +815,12 @@ function Index() {
               }}>
                 This is our first NFT collection and we called <div className='colorPink'>Crypto Colors</div>
 
-                <div style={{ marginTop: '20px'}}>
-                  <a href='https://twitter.com/CryptoColorsFTM' target='_blank' className='mr-10'>
+                <div style={{ marginTop: '20px' }}>
+                  <a href='https://twitter.com/CryptoColorsFTM' target='_blank' className='mr-10' rel="noreferrer">
                     <Image src='/assets/twitter.svg' alt='colors' width='20' height='20' />
                   </a>
 
-                  <a href='https://ftmscan.com/address/0xb43d509EC01eB42b4021d14eC0e422abf2ECf950' className='mr-10' target='_blank'>
+                  <a href='https://ftmscan.com/address/0xb43d509EC01eB42b4021d14eC0e422abf2ECf950' className='mr-10' target='_blank' rel="noreferrer">
                     <Image src='/assets/fantom.svg' alt='colors' width='20' height='20' />
                   </a>
                 </div>
@@ -793,10 +840,10 @@ function Index() {
 
             {isReady && !canSeeColors && (
               <>
-                <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
-                  { isClaiming ? 'Loading...' : 'Claim (1 FTM)' }
+                <button className='button' style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 20 }} onClick={handleClaim}>
+                  {isClaiming ? 'Loading...' : 'Claim (1 FTM)'}
                 </button>
-                <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={() => handleSeeColors()}>
+                <button className='button' style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 20 }} onClick={() => handleSeeColors()}>
                   See my colors
                 </button>
               </>
@@ -804,7 +851,7 @@ function Index() {
 
           </div>
         ) : (
-          <div style={{ 
+          <div style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -822,13 +869,13 @@ function Index() {
 
                   return (
                     <div style={{ display: 'flex' }}>
-                      <div style={{ 
+                      <div style={{
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
                         padding: '20px'
-                      }} 
-                      key={id}
+                      }}
+                        key={id}
                       >
                         <Image src={`/assets/nfts/${id}.png`} alt='color' width='100' height='100' />
                       </div>
@@ -837,8 +884,8 @@ function Index() {
                 })
               )}
             </div>
-            
-            <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={() => handleGoBack()}>
+
+            <button className='button' style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 20 }} onClick={() => handleGoBack()}>
               Go back
             </button>
           </div>
