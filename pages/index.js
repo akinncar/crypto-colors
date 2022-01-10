@@ -586,7 +586,7 @@ function Index() {
     }
   ];
 
-  let contractAddress = "0x05E90E32ab55CbD75767C7863306471bCbF75d5e"; // change here
+  let contractAddress = "0xb43d509EC01eB42b4021d14eC0e422abf2ECf950";
 
   function connectWallet(){
     if(!window.ethereum){
@@ -771,7 +771,7 @@ function Index() {
                     <Image src='/assets/twitter.svg' alt='colors' width='20' height='20' />
                   </a>
 
-                  <a href='https://ftmscan.com/address/0x05E90E32ab55CbD75767C7863306471bCbF75d5e' className='mr-10' target='_blank'>
+                  <a href='https://ftmscan.com/address/0xb43d509EC01eB42b4021d14eC0e422abf2ECf950' className='mr-10' target='_blank'>
                     <Image src='/assets/fantom.svg' alt='colors' width='20' height='20' />
                   </a>
                 </div>
