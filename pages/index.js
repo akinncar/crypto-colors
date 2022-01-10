@@ -788,12 +788,18 @@ function Index() {
                 <Image src='/assets/nfts/629.png' alt='color' width='100' height='100' />
               </div>
             </div>
-            
-            {isReady && (
-              <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={() => handleSeeColors()}>
-                See my colors
-              </button>
+
+            {isReady && !canSeeColors && (
+              <>
+                <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
+                  { isClaiming ? 'Loading...' : 'Claim (1 FTM)' }
+                </button>
+                <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={() => handleSeeColors()}>
+                  See my colors
+                </button>
+              </>
             )}
+
           </div>
         ) : (
           <div style={{ 
