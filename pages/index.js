@@ -668,7 +668,7 @@ function Index() {
       const accountAddress = await contract.methods.ownerOf([i]).call()
       
       if (accountAddress.toLowerCase() == address.toLowerCase())
-        owners.push({ accountAddress: imagesIndex[i] }) 
+        owners.push({ accountAddress: { id: i } }) 
     }
     
     setColors(owners)
@@ -811,27 +811,30 @@ function Index() {
           }}>
             <p className='colorPink'>My colors</p>
 
-            {colors.length > 0 && (
-              colors.map(image => {
-                const { id, title, description } = image.accountAddress
-                return (
-                  <div style={{ display: 'flex' }}>
-                    <div style={{ 
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      padding: '20px'
-                    }} 
-                    key={id}
-                    >
-                      <p>{title}</p>
-                      <Image src={`/assets/${id}.png`} alt='color' width='512' height='512' />
-                      <p>{description}</p>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: '20px', flexFlow: 'wrap' }}>
+              {colors.length > 0 && (
+                colors.map(image => {
+                  const { id, title, description } = image.accountAddress
+
+                  if (id === 0) return
+
+                  return (
+                    <div style={{ display: 'flex' }}>
+                      <div style={{ 
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        padding: '20px'
+                      }} 
+                      key={id}
+                      >
+                        <Image src={`/assets/nfts/${id}.png`} alt='color' width='100' height='100' />
+                      </div>
                     </div>
-                  </div>
-                )
-              })
-            )}
+                  )
+                })
+              )}
+            </div>
             
             <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={() => handleGoBack()}>
               Go back
